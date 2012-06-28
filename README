@@ -1,0 +1,14 @@
+This is the code for the “IEEE-754 Analyzers” web site hosted at
+http://babbage.cs.qc.cuny.edu/IEEE-754.
+
+Originally created as a student project to parse floating-point numbers,
+the code serves as a reference source for people who want to learn how
+the IEEE-754 standard works and/or to verify the correctness of code
+written for applications that work directly with floating-point values.
+
+See the web site’s FAQ for details.
+
+Christopher Vickery
+Queens College of CUNY
+June, 2012
+
