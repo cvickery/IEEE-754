@@ -1,0 +1,27 @@
+
+This directory contains programs that were used to verify some of the operations
+of the IEEE-754 Analysis web page.
+
+The to_binary code can be used to convert decimal values between 0 and 1 to
+binary.
+
+The floating-point_test and floating-point_analysis directories contain
+partly-functional programs for generating values using the Standard C and Math
+libraries; the floating-point_test code uses the fenv.h header to test the
+"standard floating-point environment." Both these programs exposed limitations
+in Binary128 support on the author's development system, and thus are incomplete
+programs.
+
+The java directory contains two Java programs that incorporate a small
+floating-point value that was known to cause the Java compiler/runtime to loop
+indefinitely. Referred to as DBL_MIN, the smallest "normalized" floating point
+value represented using the Java double data type, 2.2250738585072012e-308 is
+actually an approximation to the smallest "normal" Binary64 value. Our analyzer
+says it's a subnormal and that the smallest normal (taken out to a few more
+decimal places) is actually 2.225073858507201383090232717e-308. But even with
+just 16 significant decimal digits, it is confusing why the value given should
+be reported as "the problem." 2.2250738585072013e-308 is also a subnormal, one
+digit closer to the smallest normal, and should have triggered the bug too.  But
+it doesn't.
+
+

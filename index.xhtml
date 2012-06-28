@@ -1,0 +1,343 @@
+<?php
+  date_default_timezone_set('America/New_York');
+  header("Vary: Accept");
+  if ( (array_key_exists("HTTP_ACCEPT", $_SERVER) &&
+        stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml"))
+       ||
+       (array_key_exists("HTTP_USER_AGENT", $_SERVER) &&
+        stristr($_SERVER["HTTP_USER_AGENT"], "W3C_Validator"))
+     )
+  {
+    header("Content-type: application/xhtml+xml");
+    header("Last-Modified: " . date('r',filemtime($_SERVER['SCRIPT_FILENAME'])));
+    print("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+  }
+  else
+  {
+    header("Content-type: text/html; charset=utf-8");
+  }
+ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+  <head>
+    <title>IEEE-754 Analysis</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/analyzer.min.css" />
+    <style type='text/css'>
+      #message {
+        position:absolute;
+        top:1em;right:1em;
+        background-color:#ccc;
+        color:#633;
+        width:20%;
+        padding:0.5em;
+        border-radius:0.25em;
+      }
+      #message strong {
+        color:#c00;
+	  }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/jquery.hotkeys.min.js"></script>
+    <script type="text/javascript" src="scripts/numeric_value.min.js"></script>
+    <script type="text/javascript" src="scripts/analyzer.min.js"></script>
+  </head>
+  <body>
+
+    <div id="message">
+      <strong>
+        January 18, 2012:
+      </strong>
+      Fixed several rounding errors.<br/>Partial implementation of keyboard shortcuts.
+    </div>
+
+    <h1>IEEE-754 Analysis</h1>
+    <p id='need-js'>You must have JavaScript enabled to do anything with this web page.</p>
+    <div id='ui-buttons'>
+      <nav>
+        <a id='faq' href="../IEEE-754/FAQ">FAQ and previous version</a>
+      </nav>
+      <button id="add-an-analyzer">Add An Analyzer</button>
+      <button id='kill-all'>Close All Analyzers</button>
+    </div>
+    <div id="instructions-container">
+      <div id="instruction-button">
+        <button id ='show-instructions'>Show Instructions </button>
+      </div>
+      <div id='instructions' class="no-instructions">
+        <h2>Instructions</h2>
+        <p>
+          This page lets you examine the relationships among binary and decimal numbers and three
+          number formats described by the IEEE-754-2008 floating-point standard. You can enter a
+          numeric value in any one of five formats, and see all five corresponding values (Decimal,
+          Normalized Binary, Binary32 (single precision), Binary64 (double precision), and
+          Binary128 (quad precision), along with analyses of the binary structure of the
+          floating-point formats.
+        </p>
+        <p>
+          You can create multiple analyzers so you can compare multiple values at the same time.
+          Adding an analyzer will automatically hide these instructions. You can always toggle these
+          instructions on/off using the Hide/Show Instructions button at the top of the page.
+        </p>
+        <h3>Input Formats</h3>
+        <ul>
+          <li>
+            <h5>Auto</h5>
+            <p>
+              If the auto option is checked, you can enter a value in any of the formats listed below.
+            </p>
+            <p>
+              If you enter a valid decimal number, it will be treated as such even though it might
+              also be a valid binary or hexadecimal number. For example, 10101010 could be a decimal
+              number (10,101,010); a binary number (170); or it could be a 32-bit hexadecimal value
+              (Binary32 representation of approximately 2.84E-29).
+            </p>
+            <p>
+              In ambiguous cases, use the other three radio buttons to force the value to be
+              interpreted using the format you want.
+            </p>
+            <p>
+              In Auto mode, the analyzers will also accept the following “values” as inputs:
+              <code>NaN, qNaN, sNan, Infinity, +Infinity, </code>and<code> -Infinity</code>.
+            </p>
+          </li>
+          <li>
+            <h5>Decimal</h5>
+            <p>
+              You can enter decimal numbers as whole numbers (123), decimal fractions (123.456),
+              rational numbers (22/7).  or mixed numbers (1 7/8). The number may be signed, and you
+              can use exponential notation, including for the parts of rational and mixed numbers.
+              For example, 1.23e2 is the same as 123, and 1e3 1e2/7e1 is the same as 1000 100/70.
+              Note that the components of rational and mixed numbers must be integers, so negative
+              exponents are not allowed even when the component would evaluate to an integer. For
+              example, 10e-1/7 (10 times 10 to the negative 1, over 7) would have to be entered as
+              1/7.
+            </p>
+          </li>
+          <li>
+            <h5>Binary</h5>
+            <p>
+              Binary numbers may be signed whole numbers or binary fractions with an optional
+              exponent. Write the exponent in decimal, but it will be base 2. (101.1e-1 is the same
+              as 101.1<span class="subscript">2</span>&#x00D7;2<span class="superscript">-1</span> =
+              10.11<span class="subscript">2</span>, for example.) You may use 'B' or 'b' to
+              indicate the exponent instead of 'E' or 'e'—but the exponent will still be
+              interpreted as a decimal number.
+            </p>
+          </li>
+          <li>
+            <h5>Hexadecimal</h5>
+            <p>
+              The analyzer recognizes the three basic IEEE-754-2008 standard binary floating-point
+              formats: <em>Binary32</em>, (commonly called “single-precision”); <em>Binary64</em>,
+              (commonly called “double-precision”); and <em>Binary128</em> (commonly called “quad
+              precision”).  Enter exactly 8, 16, or 32 hexadecimal digits to enter a value in one
+              of these formats.
+            </p>
+            <p>
+              When the Hexadecimal input format is selected, you have the option of using
+              “little-endian” byte ordering, with the most significant byte on the right rather
+              than on the left.
+            </p>
+          </li>
+        </ul>
+        <h3>Keyboard Shortcuts</h3>
+        <p>Keyboard shortcuts are under development. The following are available now:</p>
+        <p>
+          The Esc key shows/hides these instructions. The Q key shows the FAQ. The Y key adds an 
+          analyzer.
+        </p>
+        <p>
+          Analyzer 1 supports the following keyboard shortcuts for selecting input elements.
+          <br/>Use the Ctrl key when typing:
+        </p>
+        <ul>
+          <li>a - Auto input format</li>
+          <li>d - Decimal input format</li>
+          <li>b - Binary input format</li>
+          <li>h - Hexadecimal input format</li>
+          <li>l - Little-endian hexadecimal input</li>
+          <li>&#x2191; - Round towards positive infinity</li>
+          <li>&#x2193; - Round towards negative infinity</li>
+          <li>0 - Round towards zero</li>
+          <li>n - Round to nearest</li>
+          <li>v - Enter value</li>
+        </ul>
+      </div>
+    </div>
+    <div id = 'analyzers-container'>
+      <div id='block' class="analyzer block lonely-block">
+        <div class="identifier"><p>Analyzer 1</p></div>
+        <img class='idle loading' id='loading' title="progress" src="images/ajax-loader.gif" alt=""/>
+        <fieldset class='input_format'>
+          <legend><span class="analyzerlabel">Input Format</span></legend>
+          <div>
+            <input type="radio" name="input-format" value="auto" id="force-auto" checked="checked" />
+            <label for="force-auto">auto</label>
+          </div>
+          <div>
+            <input type="radio" name="input-format" value="decimal" id="force-decimal" />
+            <label for="force-decimal">decimal</label>
+          </div>
+          <div>
+            <input type="radio" name="input-format" value="binary" id="force-binary" />
+            <label for="force-binary">binary</label>
+          </div>
+          <div>
+            <input type="radio" name="input-format" value="hexadecimal" id="force-hexadecimal" />
+            <label for="force-hexadecimal">hexadecimal</label>
+          </div>
+          <div class='input-option'>
+            <input  type="checkbox"
+                    class="little-endian" 
+                    name="little-endian" 
+                    id="force-little-endian" 
+                    disabled="disabled" />
+            <label for="force-little-endian">Hexadecimal is little-endian (right-to-left)</label>
+          </div>
+        </fieldset>        
+
+        <fieldset class='rounding_format'>
+          <legend><span class="analyzerlabel">Rounding Mode</span></legend>
+          <div>
+            <input  type="radio"
+                    name="rounding-format"
+                    value="round-nearest-value"
+                    id="force-round-nearest-value" checked="checked"  />
+            <label for="force-round-nearest-value">Round to the Nearest Value </label>
+          </div>
+          <div>
+            <input type="radio" name="rounding-format" value="round-zero" id="force-round-zero" />
+            <label for="force-round-zero">Round toward Zero </label>
+          </div>
+          <div>
+            <input  type="radio"
+                    name="rounding-format"
+                    value="round-pos-infinity"
+                    id="force-round-pos-infinity" />
+            <label for="force-round-pos-infinity">Round toward Positive Infinity </label>
+          </div>
+          <div>
+            <input  type="radio"
+                    name="rounding-format"
+                    value="round-neg-infinity"
+                    id="force-round-neg-infinity" />
+            <label for="force-round-neg-infinity">Round toward Negative Infinity </label>
+          </div>
+        </fieldset>
+
+        <fieldset class='value_enter'>
+          <legend><span class="analyzerlabel">Value to analyze:</span></legend>
+          <input type='text' class='value-entered' id='value-entered' />
+          <p>
+            <span class="analyzerlabel">Syntax Entered:</span> <span id="syntax_msg">none</span>
+          </p>
+        </fieldset>
+        <div id="result" class="result">
+          <div class='dec_and_bin_results'>
+            <p>
+              <span class="analyzerlabel">Decimal value:</span> <span id="decimal_value">0</span>
+            </p>
+            <p>
+              <span class="analyzerlabel">Normalized binary value:</span>
+              <span id="binary_value">0</span>
+            </p>
+          </div>
+          <div class = "hex32">
+            <p>
+              <span class="analyzerlabel">Binary32:</span>
+              <span id="hex32_value" class="hex32Value" >--</span>
+            </p>
+            <div id="hex32_sef" class='hex32sef'>
+              <table>
+                <tr id="hex32_sef_labels" class="hex32_sef_labels">
+                    <th><span class="analyzerlabel">Status</span></th>
+                    <th><span class="analyzerlabel">Sign&#x00a0;[1]</span></th>
+                    <th><span class="analyzerlabel">Exponent&#x00a0;[8]</span></th>
+                    <th><span class="analyzerlabel">Significand&#x00a0;[23]</span></th>
+                </tr>
+                <tr id="hex32_sef_results" class="hex32_sef_results">
+                  <td><span id="hex32_status">---</span></td>
+                  <td>
+                    <span id="hex32_sign_value">-</span>
+                    (<span id="hex32_sign_symbol">-</span>)
+                  </td>
+                  <td>
+                    <span id="hex32_exponent_value">--</span>
+                    (<span id="hex32_decimal_exponent_value">--</span>)
+                  </td>
+                  <td>
+                    <span id="hex32_fraction_value">--</span>
+                    (<span id="hex32_decimal_fraction_value">--</span>)
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class = "hex64">
+            <p>
+              <span class="analyzerlabel">Binary64:</span>
+              <span id="hex64_value" class="hex64Value">--</span>
+            </p>
+            <div id="hex64_sef" class='hex64sef'>
+              <table>
+                <tr id="hex64_sef_labels" class="hex64_sef_labels">
+                  <th><span class="analyzerlabel">Status</span></th>
+                  <th><span class="analyzerlabel">Sign&#x00a0;[1]</span></th>
+                  <th><span class="analyzerlabel">Exponent&#x00a0;[11]</span></th>
+                  <th><span class="analyzerlabel">Significand&#x00a0;[52]</span></th>
+                </tr>
+                <tr id="hex64_sef_results" class="hex64_sef_results">
+                  <td>
+                    <span id="hex64_status">---</span>
+                  </td>
+                  <td>
+                    <span id="hex64_sign_value">-</span>
+                    (<span id="hex64_sign_symbol">-</span>)
+                  </td>
+                  <td>
+                    <span id="hex64_exponent_value">--</span>
+                    (<span id="hex64_decimal_exponent_value">--</span>)
+                  </td>
+                  <td>
+                    <span id="hex64_fraction_value">--</span>
+                    (<span id="hex64_decimal_fraction_value">--</span>)
+                  </td>
+                </tr>
+               </table>
+             </div>
+          </div>
+
+          <div class = "hex128">
+            <p>
+              <span class="analyzerlabel">Binary128:</span>
+              <span id="hex128_value" class="hex128Value">--</span></p>
+             <div id="hex128_sef" class="hex128sef">
+               <table>
+                <tr id="hex128_sef_labels" class = "hex128_sef_labels">
+                  <th><span class="analyzerlabel">Status</span></th>
+                  <th><span class="analyzerlabel">Sign&#x00a0;[1]</span></th>
+                  <th><span class="analyzerlabel">Exponent&#x00a0;[15]</span></th>
+                  <th><span class="analyzerlabel">Significand&#x00a0;[112]</span></th>
+                </tr>
+                <tr id="hex128_sef_results" class ="hex128_sef_results">
+                  <td><span id="hex128_status">---</span></td>
+                  <td><span id="hex128_sign_value">-</span>
+                    (<span id="hex128_sign_symbol">-</span>)</td>
+                  <td><span id="hex128_exponent_value">--</span>
+                    (<span id="hex128_decimal_exponent_value">--</span>)</td>
+                  <td><span id="hex128_fraction_value">--</span>
+                    (<span id="hex128_decimal_fraction_value">--</span>)</td>
+                </tr>
+              </table>
+           </div>
+          </div>
+        </div>
+        <button id="kill-this-analyzer" class="kill-this-analyzer" >Close This Analyzer</button>
+      </div>
+    </div>
+  </body>
+</html>

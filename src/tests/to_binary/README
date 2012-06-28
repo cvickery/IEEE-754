@@ -1,0 +1,8 @@
+
+This directory contains a program to convert decimal values less than 1 to binary.
+
+Having the output of this program agree with the binary value reported by the 
+analyzer web page is a sanity check.
+
+Requires the pcre library to build.
+

@@ -1,0 +1,26 @@
+
+If you want to clone the analyzers, or just study the code, the following files
+are provided here:
+
+  README            This file
+  License           MIT License file
+  Makefile          To build btd and dtb
+  btd.cpp           C++ binary to decimal converter
+  dtb.cpp           C++ decimal to binary converter
+  computeBin.php    AJAX server for dtb
+  computeDec.php    AJAX server for btd
+  analyzer.js       User Interactions
+  numeric_value.js  Numeric calculations
+
+  You will also need the index page for the analyzers (index.xhtml), plus the files in the css
+  directory.
+
+  You will need to install the GNU Multiprecision Library in order to build bdt
+  and dtb.
+
+  You will need a copy of jQuery for user interactions. The code on the web
+  site uses JQuery version 1.7.1.
+
+  Christopher Vickery
+  November 2011
+
