@@ -26,7 +26,7 @@
   <head>
     <title>IEEE-754 Analyzers FAQ</title>
     <link rel="icon" href="../favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="../css/faq.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/faq.css" />
   </head>
   <body>
     <h1>IEEE-754 Analyzers FAQ</h1>
@@ -127,11 +127,17 @@
       </dt>
       <dd>
         <p>
-          Sure, there’s a <a href='../IEEE-754_Analyzer.zip'>a zip file</a> you can download with all
-          the code for the web site in it, plus some code we wrote for testing. Note that if you
-          want to replicate the analyzers you will need both this code and a copy of <a
-          href='http://gmplib.org/'>the GNU  Multiprecision Arithmetic library</a> for your
-          platform.
+          Sure! There is a Git repository of the entire site, including some routines we use for
+          testing, on <a href='http://cvickery.github.com/IEEE-754/' target='_blank'>a public
+          project site</a> so that anyone can not only access the code easily, but also contribute
+          improvements.
+        </p>
+        <p>
+          Because the web site uses C code for its calculations, the .cc files in the src directory
+          have to be compiled for whatever system you want to use for testing. Macintosh binaries
+          are left in the repository for the convenience of those who want to take advantage of
+          having them. Likewise, you will need a copy of <a href='http://gmplib.org/'>the GNU
+          Multiprecision Arithmetic library</a> for your platform.
         </p>
       </dd>
       <dt>Great! What are the licensing terms for the source code?</dt>
@@ -225,6 +231,10 @@
           <a
             href='mailto:Christopher.Vickery@qc.cuny.edu?Subject=IEEE-754%20Analyzers'>Let
             me know!</a>
+        </p>
+        <p>
+          Better yet, now you can head over to <a href="http://cvickery.github.com/IEEE-754/"
+          target='_blank'> the project page</a> and contribute!!
         </p>
       </dd>
     </dl>

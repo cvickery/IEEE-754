@@ -36,3 +36,7 @@ dt {
 	text-decoration:none;
 	background-color:#ccc;
 }
+a[target="_blank"] {
+  background: transparent url('../images/external.png') right center no-repeat;
+  padding-right: 14px;
+  }
