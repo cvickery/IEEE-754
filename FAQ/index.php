@@ -128,7 +128,7 @@
       <dd>
         <p>
           Sure! There is a Git repository of the entire site, including some routines we use for
-          testing, on <a href='http://cvickery.github.com/IEEE-754/' target='_blank'>a public
+          testing, on <a href='https://github.com/cvickery/IEEE-754/' target='_blank'>a public
           project site</a> so that anyone can not only access the code easily, but also contribute
           improvements.
         </p>
