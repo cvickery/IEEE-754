@@ -233,12 +233,12 @@
             me know!</a>
         </p>
         <p>
-          Better yet, now you can head over to <a href="http://cvickery.github.com/IEEE-754/"
-          target='_blank'> the project page</a> and contribute!!
+          Better yet, head over to <a href="https://github.com/cvickery/IEEE-754/"
+          target='_blank'> the project page on GitHub</a> and contribute!!
         </p>
       </dd>
     </dl>
-    <div id='nav'><a href="../index.xhtml">Back to the Analyzers</a></div>
+    <div id='nav'><a href="../index.php">Back to the Analyzers</a></div>
   </body>
 </html>
 

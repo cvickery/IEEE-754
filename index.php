@@ -24,7 +24,7 @@
     <p id='need-js'>You must have JavaScript enabled to do anything with this web page.</p>
     <div id='ui-buttons'>
       <nav>
-        <a id='faq' href="../IEEE-754/FAQ">FAQ and previous version</a>
+        <a id='faq' href="../IEEE-754/FAQ">FAQ for users of earlier version</a>
       </nav>
       <button id="add-an-analyzer">Add An Analyzer</button>
       <button id='kill-all'>Close All Analyzers</button>
