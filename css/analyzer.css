@@ -33,39 +33,36 @@
 
 .hex32{
     border:2px solid green;
-    padding-left:.5em;
+    padding:.25em 0 0 .5em;
     overflow-x:scroll;
     margin-bottom:.4em;
 }
 
 .hex64{
     border:2px solid blue;
-    padding-left:.5em;
+    padding:.25em 0 0 .5em;
     overflow-x:scroll;
     margin-bottom:.4em;
 }
 
 .hex128{
     border:2px solid #600;
-    padding-left:.5em;
+    padding:.25em 0 0 .5em;
     overflow-x:scroll;
     margin-bottom:.4em;
 }
 
 .hex32Value {
-    margin-top:1px;
     border:2px solid green;
     padding:.2em;
 }
 
 .hex64Value {
-    margin-top:1px;
     border:2px solid blue;
     padding:.2em;
 }
 
 .hex128Value {
-    margin-top:1px;
     border:2px solid #600;
     padding:.2em;
 }
