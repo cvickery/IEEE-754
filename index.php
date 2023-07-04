@@ -1,57 +1,24 @@
 <?php
   date_default_timezone_set('America/New_York');
   header("Vary: Accept");
-  if ( (array_key_exists("HTTP_ACCEPT", $_SERVER) &&
-        stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml"))
-       ||
-       (array_key_exists("HTTP_USER_AGENT", $_SERVER) &&
-        stristr($_SERVER["HTTP_USER_AGENT"], "W3C_Validator"))
-     )
-  {
-    header("Content-type: application/xhtml+xml");
-    header("Last-Modified: " . date('r',filemtime($_SERVER['SCRIPT_FILENAME'])));
-    print("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-  }
-  else
-  {
-    header("Content-type: text/html; charset=utf-8");
-  }
+  header("Content-type: text/html; charset=utf-8");
  ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html lang="en">
+<html>
 
   <head>
     <title>IEEE-754 Analysis</title>
+
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" type="text/css" href="css/analyzer.min.css" />
-    <style type='text/css'>
-      #message {
-        position:absolute;
-        top:1em;right:1em;
-        background-color:#ccc;
-        color:#633;
-        width:20%;
-        padding:0.5em;
-        border-radius:0.25em;
-      }
-      #message strong {
-        color:#c00;
-	  }
-    </style>
+
     <script type="text/javascript" src="scripts/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.hotkeys.min.js"></script>
     <script type="text/javascript" src="scripts/numeric_value.min.js"></script>
     <script type="text/javascript" src="scripts/analyzer.min.js"></script>
+
   </head>
   <body>
-
-    <div id="message">
-      <strong>
-        January 18, 2012:
-      </strong>
-      Fixed several rounding errors.<br/>Partial implementation of keyboard shortcuts.
-    </div>
 
     <h1>IEEE-754 Analysis</h1>
     <p id='need-js'>You must have JavaScript enabled to do anything with this web page.</p>
