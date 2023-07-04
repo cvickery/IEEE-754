@@ -32,21 +32,21 @@
 }
 
 .hex32{
-    border:1px solid green;
+    border:2px solid green;
     padding-left:.5em;
     overflow-x:scroll;
     margin-bottom:.4em;
 }
 
 .hex64{
-    border:1px solid blue;
+    border:2px solid blue;
     padding-left:.5em;
     overflow-x:scroll;
     margin-bottom:.4em;
 }
 
 .hex128{
-    border:1px solid red;
+    border:2px solid #600;
     padding-left:.5em;
     overflow-x:scroll;
     margin-bottom:.4em;
