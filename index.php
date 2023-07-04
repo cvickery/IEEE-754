@@ -7,10 +7,10 @@
 <html>
 
   <head>
-    <title>IEEE-754 Analysis</title>
+    <title>IEEE-754 Analysers</title>
 
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" type="text/css" href="css/analyzer.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/analyzer.css" />
 
     <script type="text/javascript" src="scripts/jquery-3.7.0.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.hotkeys.min.js"></script>
