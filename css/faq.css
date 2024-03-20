@@ -1,9 +1,4 @@
-html {
-	margin:0; padding: 0;
-	font-family:Verdana, Geneva, sans-serif;
-	background-color:#ccc;
-	color:black;
-}
+html { margin:0; padding: 0; font-family: sans-serif; background-color:#ccc; color:black; }
 
 body {
 	background-color:#eee;
