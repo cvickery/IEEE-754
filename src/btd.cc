@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <string>
-#include "gmp.h"
+#include <gmp.h>
 
 using namespace std;
 
