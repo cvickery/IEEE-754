@@ -1,2 +1,6 @@
 /bin/*
 
+/src/btd
+/src/btd.dSYM/
+/src/dtb
+/src/dtb.dSYM/
