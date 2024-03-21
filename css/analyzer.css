@@ -99,6 +99,9 @@ html, body {
   margin-bottom:1em;
   margin-top:50px;
 }
+.block tbody {
+  color: 0057B7;
+  }
 
 .lonely-block {
   width:49%;
