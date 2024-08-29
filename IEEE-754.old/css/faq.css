@@ -1,0 +1,21 @@
+html {
+	margin:0; padding: 0;
+	font-family:Verdana, Geneva, sans-serif;
+	background-color:#ccc;
+	color:black;
+}
+
+body {
+	background-color:#eee;
+	width: 927px;
+	border-radius:0.25em;
+	box-shadow: #999 0.25em 0.25em 0.25em;
+	margin:1em auto;
+	padding:1em;
+}
+
+h1 {text-align:center;}
+dt {
+	font-weight:bold;
+	font-size:1.1em;
+}

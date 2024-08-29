@@ -1,0 +1,113 @@
+<?php
+  header("Vary: Accept");
+  if ( (array_key_exists("HTTP_ACCEPT", $_SERVER) &&
+        stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml"))
+       ||
+       (array_key_exists("HTTP_USER_AGENT", $_SERVER) &&
+        stristr($_SERVER["HTTP_USER_AGENT"], "W3C_Validator"))
+     )
+  {
+    header("Content-type: application/xhtml+xml");
+    header("Last-Modified: " . date('r',filemtime($_SERVER['SCRIPT_FILENAME'])));
+    print("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+  }
+  else
+  {
+    header("Content-type: text/html; charset=utf-8");
+  }
+ ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+  <head>
+    <title>IEEE-754 Analysis</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="css/analyzer.css" />
+    <script type="text/javascript" src="scripts/numeric_value.js"></script>
+    <script type="text/javascript" src="scripts/analyzer.js"></script>
+  </head>
+  <body>
+    <h1>IEEE-754 Analyzer</h1>
+    <div class="analyzer">
+      <fieldset><legend>Input Format</legend>
+        <input type="radio" name="input-format" value="auto" id="force-auto" checked="checked" />
+        <label for="force-auto">auto</label>
+        
+        <input type="radio" name="input-format" value="decimal" id="force-decimal" />
+        <label for="force-decimal">decimal</label>
+        
+        <input type="radio" name="input-format" value="binary" id="force-binary" />
+        <label for="force-binary">binary</label>
+        
+        <input type="radio" name="input-format" value="hexadecimal" id="force-hexadecimal" />
+        <label for="force-hexadecimal">hexadecimal</label>
+      </fieldset>
+      <label for="value-entered">Enter value: </label><input type="text" id="value-entered" />
+      Syntax Entered: <span id="syntax_msg">none</span>
+      <div id="result">
+
+        <p>Normalized decimal value: <span id="decimal_value">0</span></p>
+        <p>Normalized binary value: <span id="binary_value">0</span></p>
+      </div>
+    </div>
+    <div>
+    	<button id="add-an-analyzer">Add An Analyzer</button>
+    </div>
+    <h2>Instructions</h2>
+    <div>
+      <p id='need-js'>You must have JavaScript enabled to do anything with this web page.</p>
+      <p>
+      	This page lets you examine the relationships among binary and decimal numbers and three
+        number formats described by the IEEE-754-2008 floating-point standard. You can enter a numeric value in
+        any one of five formats, and see all five corresponding values, along with an analyses of the binary
+        structure of the floating-point formats.
+      </p>
+      <p>
+      	You can create multiple analyzers so you can compare multiple values at the same time.
+      </p>
+      <h3>Input Formats</h3>
+      <ul>
+      	<li>
+        	<h5>Auto</h5>
+          <p>
+          	If the auto option is checked, you can enter a value in any of the formats listed below. If you enter a
+            valid decimal number, it will be treated as such even though it might also be a valid binary or
+            hexadecimal number. For example, 10101010 could be the decimal number 10,101,010; the
+            the binary number 170; or it could be a 32-bit hexadecimal value. In ambiguous cases like this, use
+            the radio buttons to force the value to be interpreted using the format you want.
+          </p>
+        </li>
+        <li>
+        	<h5>Decimal</h5>
+          <p>
+          	You can enter decimal numbers as whole numbers (123), decimal fractions (123.456), or mixed numbers
+            (1 7/8). The number may be signed, and you can use exponential notation, even for the parts of mixed
+            numbers. (1.23e2 or 1e3 1e2/7e1 for example; corresponding to 123 and 1000 100/70, repsectively)
+          </p>
+        </li>
+        <li>
+        	<h5>Binary</h5>
+          <p>
+          	Binary numbers may be signed whole numbers or binary fractions with an optional exponent. Write the
+            exponent in decimal, but it will be base 2. (101.1e-2 is the same as 1.011, for example.)
+          </p>
+        </li>
+        <li>
+        	<h5>Hexadecimal</h5>
+          <p>
+          	This analyzer recognizes three IEEE-754-2008 standard floating-point formats: binary32, commonly called
+            single-precision; binary64, commonly called double-precision; and binary128. Enter exactly 8, 16, or 32
+            hexadecimal digits to enter a value in one of these formats.
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div>
+      Last&nbsp;updated&nbsp;<?php echo date("Y-m-d", filemtime($_SERVER['SCRIPT_FILENAME'])); ?>
+      <a href="http://validator.w3.org/check?uri=referer">XHTML</a>
+      <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+    </div>
+  </body>
+</html>
+

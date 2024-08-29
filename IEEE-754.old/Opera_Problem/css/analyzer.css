@@ -1,0 +1,7 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.busy {
+  cursor:wait;
+  background-color:yellow;
+}

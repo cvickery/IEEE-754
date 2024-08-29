@@ -1,0 +1,95 @@
+head	1.1;
+access;
+symbols;
+locks
+	vickery:1.1; strict;
+comment	@# @;
+
+
+1.1
+date	2010.03.27.05.01.40;	author vickery;	state Exp;
+branches;
+next	;
+
+
+desc
+@UI manager for the IEEE-754 calculator web page.
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@// $Id$
+/*    This script implements the arithmetic and UI functions of the IEEE-754 calculators.
+ *    To be as accurate as possible, arithmetic is done on decimal strings rather than on
+ *    JavaScript numbers.
+ *
+ *    $Log$
+ */
+window.onload = function()
+{
+  var Dec = new Decimal();
+  function Calculator(decimal, single, double, decimal_value)
+  {
+    this.decimal = decimal;
+    this.single = single;
+    this.double = double;
+    this.decimal_value = decimal_value;
+    decimal.calculator = single.calculator = double.calculator = this;
+    decimal.onchange = decimalChangeHandler;
+  }
+
+  //  decimalParse()
+  //  -------------------------------------------------------------------------
+  /*  Convert user-entered value to decimal normal form, if possible.
+   *    The input string must be in one of the following three forms:
+   *      i[.f][Ee] integer [fraction] [exponent]
+   *      .f[Ee]    fraction [exponent]
+   *      n/d       numerator denominator
+   */
+  function decimalParse(inputString)
+  {
+    var integer_part = '';
+    var fraction_part = '';
+    var exponent = 0;
+    var rational = /^\s*([+\-]?\d+)\s*\/\s*([+\-]?\d+)\s*$/.exec(inputString);
+    if (rational)
+    {
+      var numerator = rational[1];
+      var denominator = rational[2];
+      //  Long division: integer part
+      return Dec.divide(numerator, denominator).normalize();
+    }
+    return "is not rational";
+  }
+  //  decimalChangeHandler()
+  //  -------------------------------------------------------------------------
+  /*  Respond to changed values in the decimal field of a calculator
+   *    Parse and convert into normal form: i.fEe
+   *    Display normal form in decimal_value
+   *    Convert to single and double precision; update their values
+   */
+  function decimalChangeHandler(evt)
+  {
+    evt = evt ? evt : event;
+    this.calculator.decimal_value.nodeValue = decimalParse(this.value);
+  }
+
+  //  Array of the current set of calculators.
+  var calculators = [ ];
+
+  //  Initialization
+  document.getElementById('need-js').style.display = 'none';
+  calculators.push
+  (
+    new Calculator( document.getElementById('decimal'),
+                    document.getElementById('single'),
+                    document.getElementById('double'),
+                    document.getElementById('decimal-value').firstChild )
+
+  );
+};
+@

@@ -1,11 +1,11 @@
 # IEEE-754 Analyzers
 
-This is the code for the “IEEE-754 Analyzers” web site hosted at <http://babbage.cs.qc.cuny.edu/IEEE-754>.
+This is the code for the “IEEE-754 Analyzers” web site hosted at <http://christophervickery.com/IEEE-754>.
 
 Originally created as a student project to parse floating-point numbers, the code serves as a reference source for people who want to learn how the IEEE-754 standard works and/or to verify the correctness of code
 written for applications that work directly with floating-point values.
 
-See the web site’s [FAQ](https://babbage.cs.qc.cuny.edu/IEEE-754/FAQ) for details.
+See the web site’s [FAQ](https://christophervickery.com/IEEE-754/FAQ) for details.
 
 If you want to clone the analyzers, or just study the code, these are the source code files used:
 
