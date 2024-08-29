@@ -1,0 +1,5 @@
+
+RedirectMatch 301 32bit.html       http://babbage.cs.qc.cuny.edu/IEEE-754.new/index.xhtml
+RedirectMatch 301 64bit.html       http://babbage.cs.qc.cuny.edu/IEEE-754.new/index.xhtml
+RedirectMatch 301 Decimal.html     http://babbage.cs.qc.cuny.edu/IEEE-754.new/index.xhtml
+RedirectMatch 301 References.xhtml http://babbage.cs.qc.cuny.edu/IEEE-754.new/index.xhtml
