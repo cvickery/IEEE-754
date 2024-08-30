@@ -1,19 +1,8 @@
-<?php
-  if (stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml"))
-  {
-    header("Content-type: application/xhtml+xml");
-    print("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-  }
-  else
-  {
-    header("Content-type: text/html; charset=utf-8");
-  }
- ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
   <head>
+    <meta charset="UTF-8">
     <title>IEEE-754 Reference Material</title>
 
     <link rel="shortcut icon" href="/favicon.ico" />
@@ -54,8 +43,8 @@
       #footer     { font-size: 0.9em; margin:0;}
       h2:first-child { text-align:center;}
 			h2:first-child + div {
-				border-radius:0.25em; 
-				box-shadow:#999 0.25em 0.25em 0.25em; 
+				border-radius:0.25em;
+				box-shadow:#999 0.25em 0.25em 0.25em;
 				width: 60%;
 				margin:auto;
 				}
@@ -74,7 +63,7 @@
       </p>
       <p>
         The “calculators” referenced on this page have been replaced by an “analyzer” at <a
-        href="../IEEE-754/">IEEE-754</a>.</p>
+        href="../IEEE-754/index.html">IEEE-754</a>.</p>
     </div>
     <h2>
       Old Contents
@@ -966,11 +955,6 @@
           Representations to Decimal Floating-Point Numbers.</a>
         <br />
         <a href="/">Vickery Home Page.</a>
-      <p class="updateNote">
-        <a href="http://validator.w3.org/check?uri=referer">XHTML</a>&nbsp;-&nbsp;<a
-           href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>&nbsp;-&nbsp;Last&nbsp;updated&nbsp;<?php
-           echo date("Y-m-d", filemtime($_SERVER['SCRIPT_FILENAME']));?>.
-      </p>
     </div>
   </body>
   </html>
