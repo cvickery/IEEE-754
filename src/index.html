@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>IEEE-754 Analyzers Source Code</title>
+    <link rel="icon" href="../../favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../css/faq.css" />
+    <style type='text/css'>
+      table { border-collapse:collapse; border:1px solid black;margin-left:1em;}
+			th {text-align: left;padding: 0 0.5em;}
+			td {padding: 0 1em;}
+    </style>
+  </head>
+  <body>
+    <h1>IEEE-754 Converter-Analyzer Source Code</h1>
+    <p>
+      All code for this project is available on <a href="https://github.com/cvickery/IEEE-754"> GitHub</a> under an <a href='License'>MIT
+      license</a>, which allows you to use the code pretty much any way you want to provided you
+      maintain the license document with the code.
+    </p>
+    <p>
+      This C++ code in this directory uses the GNU Multiprecision Arithmetic Library, which is
+      licensed separately under the terms of the <a href="https://www.gnu.org/copyleft/lesser.html">
+      GNU LGPL</a>
+    </p>
+    <h2>Project Structure</h2>
+    <p>
+      HTML, CSS, and JavaScript files are standard. The project uses two AJAX servers written in
+      PHP. This directory contains two C++ source code files used by the PHP servers.
+    </p>
+    <p>
+      This table shows how the executable code is organized:
+    </p>
+    <table>
+      <tr><th>File</th><th>Notes</th><th>Location</th></tr>
+      <tr><td>README</td><td>This file</td><td>/src</td></tr>
+      <tr><td>Makefile</td><td>To compile the .cpp programs</td><td>/src</td></tr>
+      <tr><td>btd.cpp</td><td>Binary to Decimal</td><td>/src</td></tr>
+      <tr><td>dtb.cpp</td><td>Decimal to Binary</td><td>/src</td></tr>
+      <tr><td>computeDec.php</td><td>Ajax server for btd</td><td>/</td></tr>
+      <tr><td>computeBin.php</td><td>Ajax server for dtb</td><td>/</td></tr>
+      <tr><td>analyzer.js</td><td>User interactions. Uses jQuery.</td><td>/scripts</td></tr>
+      <tr><td>numeric_value.js</td><td>Calculations</td><td>/scripts</td></tr>
+    </table>
+    <p>
+      Compiled versions of the <em>.cpp</em> programs go in the <em>/bin</em> directory after they
+      have been compiled for the host machine. The PHP servers assume the compiled names are exactly
+      <em>btd</em> and <em>dtb</em>.
+  </body>
+</html>
