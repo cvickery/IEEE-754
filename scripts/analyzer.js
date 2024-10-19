@@ -9,7 +9,7 @@ $().ready(function()
 
   //  keyboard_shortcuts()
   //  ---------------------------------------------------------------------------------------------
-  /*  For now, these are easter eggs because they work only for analyzer #1
+  /*  These shortcuts work only for analyzer #1
    *
    */
   function keyboard_shortcuts(event)
@@ -66,7 +66,7 @@ $().ready(function()
             break;
           //  q:  faQ
           case 81:
-            window.location = 'http://babbage.cs.qc.cuny.edu/IEEE-754/FAQ';
+            window.location = 'https://christophervickery.com/IEEE-754/FAQ.html';
             break;
           //  y:  Add an analYzer
           case 89:
