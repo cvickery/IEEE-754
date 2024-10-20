@@ -16,14 +16,14 @@
   </head>
   <body>
 
-    <h1>IEEE-754 Analysis</h1>
+    <h1>IEEE-754 Analysis and Conversions</h1>
     <p id='need-js'>You must have JavaScript enabled to do anything with this web page.</p>
     <div id='ui-buttons'>
       <nav>
         <a id='faq' href="faq.html">About this site: History and FAQ</a>
       </nav>
-      <button id="add-an-analyzer">Add An Analyzer</button>
-      <button id='kill-all'>Close All Analyzers</button>
+      <button id="add-an-analyzer">Add An Analyzer-Converter</button>
+      <button id='kill-all'>Close All Analyzers-Converters</button>
     </div>
     <div id="instructions-container">
       <div id="instruction-button">
@@ -32,24 +32,34 @@
       <div id='instructions' class="no-instructions">
         <h2>Instructions</h2>
         <p>
-          This page lets you examine the relationships among binary and decimal numbers and three
-          number formats described by the IEEE-754-2008 floating-point standard. You can enter a
-          numeric value in any one of five formats, and see all five corresponding values (Decimal,
-          Normalized Binary, Binary32 (single precision), Binary64 (double precision), and
-          Binary128 (quad precision), along with analyses of the binary structure of the
-          floating-point formats.
+          This page lets you examine the relationships among binary and decimal values and the
+          three basic binary floating-point formats specified by the IEEE-754-2019 standard:
+          <em>binary32</em> (single-precision), <em>binary64</em> (double-precision), and
+          <em>binary128</em> (quad-precision). The IEEE-754-2019 standard also specifies other
+          representations for floating-point values that are not covered here, but the three basic
+          binary formats match the data types for real numbers supported by most programming
+          languages.
         </p>
         <p>
-          You can create multiple analyzers so you can compare multiple values at the same time.
+          You can create multiple analyzer-converters so you can compare multiple values at the same
+          time.
           Adding an analyzer will automatically hide these instructions. You can always toggle these
           instructions on/off using the Hide/Show Instructions button at the top of the page.
+        </p>
+        <p>
+          Each analyzer-converter accepts a numeric value in entered in any one of five formats, and
+          shows five corresponding
+          values (Decimal, Normalized Binary, <em>binary32</em>, <em>binary64</em>, and
+          <em>binary128</em>. Each binary floating-point is accompanied by an analysis of its field
+          values.
         </p>
         <h3>Input Formats</h3>
         <ul>
           <li>
             <h5>Auto</h5>
             <p>
-              If the auto option is checked, you can enter a value in any of the formats listed below.
+              If the auto option is checked, you can enter a value in any of the formats listed
+              below.
             </p>
             <p>
               If you enter a valid decimal number, it will be treated as such even though it might
@@ -93,7 +103,7 @@
           <li>
             <h5>Hexadecimal</h5>
             <p>
-              The analyzer recognizes the three basic IEEE-754-2008 standard binary floating-point
+              The analyzer recognizes the three IEEE-754-2019 standard’s binary floating-point
               formats: <em>Binary32</em>, (commonly called “single-precision”); <em>Binary64</em>,
               (commonly called “double-precision”); and <em>Binary128</em> (commonly called “quad
               precision”).  Enter exactly 8, 16, or 32 hexadecimal digits to enter a value in one
