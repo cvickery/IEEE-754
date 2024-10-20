@@ -66,7 +66,7 @@ $().ready(function()
             break;
           //  q:  faQ
           case 81:
-            window.location = 'https://christophervickery.com/IEEE-754/FAQ.html';
+            window.location = 'https://christophervickery.com/IEEE-754/faq.html';
             break;
           //  y:  Add an analYzer
           case 89:
