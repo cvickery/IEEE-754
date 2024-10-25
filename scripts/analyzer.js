@@ -1,204 +1,196 @@
 /*    This script implements the arithmetic and UI functions of the IEEE-754 analyzers.  For
  *    accuracy, arithmetic is done on strings rather than on JavaScript numbers.
  */
-$().ready(function()
+// Initialization
+//  ---------------------------------------------------------------------------------------------
+document.querySelector('#need-js').style.display = 'none';;
+
+//  keyboard_shortcuts()
+//  ---------------------------------------------------------------------------------------------
+/*  These shortcuts work only for analyzer #1
+ *
+ */
+function keyboard_shortcuts(event)
 {
-  // Initialization
-  //  ---------------------------------------------------------------------------------------------
-  $('#need-js').hide(0);
-
-  //  keyboard_shortcuts()
-  //  ---------------------------------------------------------------------------------------------
-  /*  These shortcuts work only for analyzer #1
-   *
-   */
-  function keyboard_shortcuts(event)
+  switch (event.data)
   {
-    switch (event.data)
-    {
-      case 'ctrl+a':  $('#force-auto').focus();
-      break;
-      case 'ctrl+d':  $('#force-decimal').focus();
-      break;
-      case 'ctrl+b':  $('#force-binary').focus();
-      break;
-      case 'ctrl+h':  $('#force-hexadecimal').focus();
-      break;
-      case 'ctrl+l':  $('#force-little-endian').focus();
-      break;
-      case 'ctrl+v':  $('#value-entered').focus();
-      break;
-      case 'ctrl+up':   $('#force-round-pos-infinity').focus();
-      break;
-      case 'ctrl+down': $('#force-round-neg-infinity').focus();
-      break;
-      case 'ctrl+0':  $('#force-round-zero').focus();
-      break;
-      case 'ctrl+n':  $('#force-round-nearest-value').focus();
-      break;
-      default: alert('Unrecognized keyboard input: ' + event.data);
-    }
-    event.preventDefault();
+    case 'ctrl+a':  $('#force-auto').focus();
+    break;
+    case 'ctrl+d':  $('#force-decimal').focus();
+    break;
+    case 'ctrl+b':  $('#force-binary').focus();
+    break;
+    case 'ctrl+h':  $('#force-hexadecimal').focus();
+    break;
+    case 'ctrl+l':  $('#force-little-endian').focus();
+    break;
+    case 'ctrl+v':  $('#value-entered').focus();
+    break;
+    case 'ctrl+up':   $('#force-round-pos-infinity').focus();
+    break;
+    case 'ctrl+down': $('#force-round-neg-infinity').focus();
+    break;
+    case 'ctrl+0':  $('#force-round-zero').focus();
+    break;
+    case 'ctrl+n':  $('#force-round-nearest-value').focus();
+    break;
+    default: alert('Unrecognized keyboard input: ' + event.data);
   }
-  $('input').bind('keyup', 'ctrl+a',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+d',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+b',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+h',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+l',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+v',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+up',   keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+down', keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+0',    keyboard_shortcuts);
-  $('input').bind('keyup', 'ctrl+n',    keyboard_shortcuts);
+  event.preventDefault();
+}
+$('input').bind('keyup', 'ctrl+a',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+d',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+b',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+h',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+l',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+v',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+up',   keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+down', keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+0',    keyboard_shortcuts);
+$('input').bind('keyup', 'ctrl+n',    keyboard_shortcuts);
 
-  $('body, #instructions').bind('keyup', function(event)
+$('body, #instructions').bind('keyup', function(event)
+  {
+    //  Application-wide shortcuts
+    var keyCode = event.keyCode;
+    if (keyCode === 27 || keyCode === 81 || keyCode === 89)
     {
-      //  Application-wide shortcuts
-      var keyCode = event.keyCode;
-      if (keyCode === 27 || keyCode === 81 || keyCode === 89)
+      switch (event.keyCode)
       {
-        switch (event.keyCode)
-        {
-          //  Esc: toggle instructions
-          case 27:
-            //console.log('call instructionsHandler');
-            instructionsHandler();
-            break;
-          //  q:  faQ
-          case 81:
-            window.location = 'https://christophervickery.com/IEEE-754/faq.html';
-            break;
-          //  y:  Add an analYzer
-          case 89:
-            //console.log('call clickHandler');
-            clickHandler();
-            break;
-        }
+        //  Esc: toggle instructions
+        case 27:
+          //console.log('call instructionsHandler');
+          instructionsHandler();
+          break;
+        //  q:  faQ
+        case 81:
+          window.location = 'https://christophervickery.com/IEEE-754/faq.html';
+          break;
+        //  y:  Add an analYzer
+        case 89:
+          //console.log('call clickHandler');
+          clickHandler();
+          break;
       }
-      else
+    }
+    else
+    {
+      var nextUp = null;
+      var analyzer_num = '';
+      //  Determine which analyzer has focus in order to dispatch properly
+      if (typeof document.activeElement !== 'undefined')
       {
-        var nextUp = null;
-        var analyzer_num = '';
-        //  Determine which analyzer has focus in order to dispatch properly
-        if (typeof document.activeElement !== 'undefined')
-        {
-          //console.log('activeElement: ' + document.activeElement +
-          //  ' is ' + ($.isArray(document.activeElement) ? '' : 'not ') + 'an array'
-          //);
-          nextUp = document.activeElement;
-        }
+        //console.log('activeElement: ' + document.activeElement +
+        //  ' is ' + ($.isArray(document.activeElement) ? '' : 'not ') + 'an array'
+        //);
+        nextUp = document.activeElement;
+      }
 
-//      Tried to get this to work on Chrome: no luck
-//      else if (typeof $('*:focus') !== 'undefined')
-//      {
-//        nextUp = $('*:focus');
-//      }
-
-        if (nextUp)
+      if (nextUp)
+      {
+        // search up to find a div of class analyzer
+        var watchdog = 0;
+        while (nextUp.tagName !== 'body')
         {
-          // search up to find a div of class analyzer
-          var watchdog = 0;
-          while (nextUp.tagName !== 'body')
+          //console.log(watchdog + ': ' + nextUp);
+          var classes = nextUp.getAttribute('class');
+          if (classes && -1 !== classes.indexOf('analyzer'))
           {
-            //console.log(watchdog + ': ' + nextUp);
-            var classes = nextUp.getAttribute('class');
-            if (classes && -1 !== classes.indexOf('analyzer'))
-            {
-              var id = nextUp.getAttribute('id');
-              var matches = /block(\d*)/.exec(id);
-              analyzer_num = matches[1];
-              break;
-            }
-            if (++watchdog > 10)
-              break;
-            nextUp = nextUp.parentNode;
+            var id = nextUp.getAttribute('id');
+            var matches = /block(\d*)/.exec(id);
+            analyzer_num = matches[1];
+            break;
           }
-          //console.log('analyzer' + analyzer_num);
+          if (++watchdog > 10)
+            break;
+          nextUp = nextUp.parentNode;
         }
+        //console.log('analyzer' + analyzer_num);
       }
-    });
+    }
+  });
   $('input').bind('keyup', 'ctrl+y', clickHandler);
   $('input').bind('keyup', 'ctrl+q',
       function(){window.location = $('#faq')[0].getAttribute('href');});
 
-  // Array of the current set of analyzers.
-  var analyzers           = [];
-  var num                 = 1;
-  var instructionsVisible = false;
+// Array of the current set of analyzers.
+var analyzers           = [];
+var num                 = 1;
+var instructionsVisible = false;
 
-  //  Behaviors
-  $('#add-an-analyzer').bind('click', clickHandler);
-  $('#kill-all').bind('click', killAllHandler);
-  $('#show-instructions').bind('click', instructionsHandler);
-  $('#analyzers-container').on('click', '.kill-this-analyzer', closeHandler);
-  $('#analyzers-container').on('change', '.input_format input', handleHexRadio);
+//  Behaviors
+$('#add-an-analyzer').bind('click', clickHandler);
+$('#kill-all').bind('click', killAllHandler);
+$('#show-instructions').bind('click', instructionsHandler);
+$('#analyzers-container').on('click', '.kill-this-analyzer', closeHandler);
+$('#analyzers-container').on('change', '.input_format input', handleHexRadio);
 
-  //  Generate Analyzer object for Analyzer #1
-  analyzers.push(new Analyzer(document.getElementById('value-entered'),
-      document.getElementById('force-auto'),
-      document.getElementById('force-decimal'),
-      document.getElementById('force-binary'),
-      document.getElementById('force-hexadecimal'),
-      document.getElementById('syntax_msg').firstChild,
-      document.getElementById('decimal_value').firstChild,
-      document.getElementById('binary_value').firstChild,
-      document.getElementById('hex32_value').firstChild,
-      document.getElementById('hex64_value').firstChild,
-      document.getElementById('hex128_value').firstChild,
-      document.getElementById('hex32_sef').firstChild,
-      document.getElementById('hex64_sef').firstChild,
-      document.getElementById('hex128_sef').firstChild,
-      document.getElementById('hex32_sign_value').firstChild,
-      document.getElementById('hex32_exponent_value').firstChild,
-      document.getElementById('hex32_decimal_exponent_value').firstChild,
-      document.getElementById('hex32_fraction_value').firstChild,
-      document.getElementById('hex32_decimal_fraction_value').firstChild,
-      document.getElementById('hex64_sign_value').firstChild,
-      document.getElementById('hex64_exponent_value').firstChild,
-      document.getElementById('hex64_decimal_exponent_value').firstChild,
-      document.getElementById('hex64_fraction_value').firstChild,
-      document.getElementById('hex64_decimal_fraction_value').firstChild,
-      document.getElementById('hex128_sign_value').firstChild,
-      document.getElementById('hex128_exponent_value').firstChild,
-      document.getElementById('hex128_decimal_exponent_value').firstChild,
-      document.getElementById('hex128_fraction_value').firstChild,
-      document.getElementById('hex128_decimal_fraction_value').firstChild,
-      document.getElementById('hex32_sign_symbol').firstChild,
-      document.getElementById('hex64_sign_symbol').firstChild,
-      document.getElementById('hex128_sign_symbol').firstChild,
-      document.getElementById('force-round-nearest-value'),
-      document.getElementById('force-round-zero'),
-      document.getElementById('force-round-pos-infinity'),
-      document.getElementById('force-round-neg-infinity'),
-      document.getElementById('hex32_status').firstChild,
-      document.getElementById('hex64_status').firstChild,
-      document.getElementById('hex128_status').firstChild,
-      document.getElementById('force-little-endian')
-      )
-    );
+//  Generate Analyzer object for Analyzer #1
+analyzers.push(new Analyzer(document.getElementById('value-entered'),
+    document.getElementById('force-auto'),
+    document.getElementById('force-decimal'),
+    document.getElementById('force-binary'),
+    document.getElementById('force-hexadecimal'),
+    document.getElementById('syntax_msg').firstChild,
+    document.getElementById('decimal_value').firstChild,
+    document.getElementById('binary_value').firstChild,
+    document.getElementById('hex32_value').firstChild,
+    document.getElementById('hex64_value').firstChild,
+    document.getElementById('hex128_value').firstChild,
+    document.getElementById('hex32_sef').firstChild,
+    document.getElementById('hex64_sef').firstChild,
+    document.getElementById('hex128_sef').firstChild,
+    document.getElementById('hex32_sign_value').firstChild,
+    document.getElementById('hex32_exponent_value').firstChild,
+    document.getElementById('hex32_decimal_exponent_value').firstChild,
+    document.getElementById('hex32_fraction_value').firstChild,
+    document.getElementById('hex32_decimal_fraction_value').firstChild,
+    document.getElementById('hex64_sign_value').firstChild,
+    document.getElementById('hex64_exponent_value').firstChild,
+    document.getElementById('hex64_decimal_exponent_value').firstChild,
+    document.getElementById('hex64_fraction_value').firstChild,
+    document.getElementById('hex64_decimal_fraction_value').firstChild,
+    document.getElementById('hex128_sign_value').firstChild,
+    document.getElementById('hex128_exponent_value').firstChild,
+    document.getElementById('hex128_decimal_exponent_value').firstChild,
+    document.getElementById('hex128_fraction_value').firstChild,
+    document.getElementById('hex128_decimal_fraction_value').firstChild,
+    document.getElementById('hex32_sign_symbol').firstChild,
+    document.getElementById('hex64_sign_symbol').firstChild,
+    document.getElementById('hex128_sign_symbol').firstChild,
+    document.getElementById('force-round-nearest-value'),
+    document.getElementById('force-round-zero'),
+    document.getElementById('force-round-pos-infinity'),
+    document.getElementById('force-round-neg-infinity'),
+    document.getElementById('hex32_status').firstChild,
+    document.getElementById('hex64_status').firstChild,
+    document.getElementById('hex128_status').firstChild,
+    document.getElementById('force-little-endian')
+    )
+  );
 
-  function getElementsByClass(theClass)
+function getElementsByClass(theClass)
+{
+  var elementArray = [];
+  if (typeof document.all != "undefined")
   {
-    var elementArray = [];
-    if (typeof document.all != "undefined")
-    {
-      elementArray = document.all;
-    }
-    else
-    {
-      elementArray = document.getElementsByTagName("*");
-    }
-    var matchedArray = [];
-    var pattern = new RegExp("(^| )" + theClass + "( |$)");
-    for ( var i = 0; i < elementArray.length; i++)
-    {
-      if (pattern.test(elementArray[i].className))
-      {
-        matchedArray[matchedArray.length] = elementArray[i];
-      }
-    }
-    return matchedArray;
+    elementArray = document.all;
   }
+  else
+  {
+    elementArray = document.getElementsByTagName("*");
+  }
+  var matchedArray = [];
+  var pattern = new RegExp("(^| )" + theClass + "( |$)");
+  for ( var i = 0; i < elementArray.length; i++)
+  {
+    if (pattern.test(elementArray[i].className))
+    {
+      matchedArray[matchedArray.length] = elementArray[i];
+    }
+  }
+  return matchedArray;
+}
 
   // Analyzer()
   // -------------------------------------------------------------------------
@@ -1082,5 +1074,3 @@ $().ready(function()
       document.getElementById('show-instructions').innerHTML = 'Show Instructions';
     }
   }
-});
-
